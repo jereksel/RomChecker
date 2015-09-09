@@ -6,5 +6,5 @@
     <rom name="SlimLP" manifest="https://raw.githubusercontent.com/SlimRoms/platform_manifest/lp5.1/default.xml"/>
     <rom name="MinimalOS" manifest="https://raw.githubusercontent.com/MinimalOS/platform_manifest/lp-mr1/default.xml"/>
     <rom name="DirtyUnicorns" manifest="https://raw.githubusercontent.com/DirtyUnicorns/android_manifest/lollipop/default.xml"/>
-    <rom name="BrokenOS" manifest="https://raw.githubusercontent.com/DirtyUnicorns/android_manifest/lollipop/default.xml"/>
+    <rom name="BrokenOS" manifest="https://raw.githubusercontent.com/BrokenROM/platform_manifest/lp5.1/default.xml"/>
 </roms>
