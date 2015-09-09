@@ -28,9 +28,14 @@ public class Checking {
         try {
             url = manifest.getUrlForPath(file.getRepo());
         } catch (NoSuchElementException ignored) {
+            //No repo in manifest
             return false;
         }
 
+        if (file.getName() == null) {
+            //No file - we only check repo existence
+            return true;
+        }
 
         url = StringUtils.substringAfter(url, "github.com/");
 

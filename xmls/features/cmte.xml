@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <feature name="CyanogenMod Theme Engine">
     <section>
-        <file repo="packages/apps/ThemeChooser" name="Android.mk"/>
+        <file repo="packages/apps/ThemeChooser"/>
     </section>
 </feature>

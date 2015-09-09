@@ -2,7 +2,6 @@
 <feature name="PIE (Slim)">
     <section>
         <file repo="frameworks/base" name="packages/SystemUI/src/com/android/systemui/statusbar/pie/PieSliceContainer.java"/>
-        <file repo="frameworks/base" name="packages/SystemUI/src/com/android/systemui/statusbar/pie/PieView.java"
-              code=""/>
+        <file repo="frameworks/base" name="packages/SystemUI/src/com/android/systemui/statusbar/pie/PieView.java"/>
     </section>
 </feature>

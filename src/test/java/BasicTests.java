@@ -20,7 +20,7 @@ public class BasicTests {
         assertEquals("PIE (Slim)", feature.getName());
 
         assertEquals(1, feature.getSections().size());
-        assertEquals("", feature.getSections().get(0).getFiles().get(1).getCode());
+        assertEquals(null, feature.getSections().get(0).getFiles().get(1).getCode());
         assertTrue(StringUtils.isEmpty(feature.getSections().get(0).getFiles().get(0).getCode()));
         assertEquals(2, feature.getSections().get(0).getFiles().size());
     }
