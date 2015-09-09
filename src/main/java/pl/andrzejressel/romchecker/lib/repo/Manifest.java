@@ -78,9 +78,7 @@ public class Manifest {
             remoteUrl += "/";
         }
 
-
         return remoteUrl + name + "/" + revision;
-
     }
 
 }
