@@ -3,6 +3,7 @@ import org.junit.Test;
 import pl.andrzejressel.romchecker.lib.features.Features;
 
 import java.io.File;
+import java.net.URI;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -16,7 +17,7 @@ public class FeaturesTest {
         File featuresFile = new File("src/test/resources/testfeatures.xml");
         Features features = Features.getFeatures(FileUtils.readFileToString(featuresFile));
 
-        String location = features.getFeatureXMLLocation("Test Feature with relative path", featuresFile.getAbsolutePath());
+        URI location = features.getFeatureXMLLocation("Test Feature with relative path", featuresFile.getAbsolutePath());
 
         assertTrue(new File(location).exists());
 
@@ -28,9 +29,9 @@ public class FeaturesTest {
         File featuresFile = new File("src/test/resources/testfeatures.xml");
         Features features = Features.getFeatures(FileUtils.readFileToString(featuresFile));
 
-        String location = features.getFeatureXMLLocation("Test Feature with relative path", "https://www.abc.com/app/testfeatures.xml");
+        URI location = features.getFeatureXMLLocation("Test Feature with relative path", "https://www.abc.com/app/testfeatures.xml");
 
-        assertEquals("https://www.abc.com/app/features/foo.xml", location);
+        assertEquals("https://www.abc.com/app/features/foo.xml", location.toString());
 
     }
 
@@ -41,9 +42,9 @@ public class FeaturesTest {
         File featuresFile = new File("src/test/resources/testfeatures.xml");
         Features features = Features.getFeatures(FileUtils.readFileToString(featuresFile));
 
-        String location = features.getFeatureXMLLocation("Test Feature with absolute url", "https://www.abc.com/app/testfeatures.xml");
+        URI location = features.getFeatureXMLLocation("Test Feature with absolute url", "https://www.abc.com/app/testfeatures.xml");
 
-        assertEquals("https://www.foo.bar/features/foo.xml", location);
+        assertEquals("https://www.foo.bar/features/foo.xml", location.toString());
     }
 
 }

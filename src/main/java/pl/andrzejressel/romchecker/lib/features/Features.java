@@ -36,20 +36,18 @@ public class Features {
 
     public String getFeatureXML(String featureName, String featuresFileLocation) {
 
+        URI featureLocation = getFeatureXMLLocation(featureName, featuresFileLocation);
+
         try {
-           // return IOUtils.toString(new URI(getFeatureXMLLocation(featureName, featuresFileLocation)));
-
-            return FileUtils.readFileToString(new File(getFeatureXMLLocation(featureName, featuresFileLocation)));
-
-        } catch (IOException  e) {
-            e.printStackTrace();
+            return IOUtils.toString(featureLocation);
+        } catch (IOException ignored) {
         }
 
         return null;
 
     }
 
-    public String getFeatureXMLLocation(String featureName, String featuresFileLocation) {
+    public URI getFeatureXMLLocation(String featureName, String featuresFileLocation) {
 
         List<String> featuresList = getFeatures();
 
@@ -62,13 +60,12 @@ public class Features {
         File file = new File(feature.getLocation());
 
         if (file.exists()) {
-            return file.getAbsolutePath();
+            return file.toURI();
         }
 
         try {
-            return new URL(feature.getLocation()).toString();
-        } catch (MalformedURLException e) {
-            //  e.printStackTrace();
+            return new URL(feature.getLocation()).toURI();
+        } catch (MalformedURLException | URISyntaxException ignored) {
         }
 
 
@@ -79,16 +76,18 @@ public class Features {
 
             File folder = featuresFile.getParentFile();
 
-            return (folder.getAbsoluteFile() + File.separator + feature.getLocation());
+            return new File(folder.getAbsoluteFile() + File.separator + feature.getLocation()).toURI();
+
+           // return featuresFile.toURI();
 
         }
 
 
         try {
             URL featuresUrl = new URL(StringUtils.remove(featuresFileLocation, StringUtils.substringAfterLast(featuresFileLocation, "/")));
-            return featuresUrl.toString() + feature.getLocation();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+            return new URL(featuresUrl.toString() + feature.getLocation()).toURI();
+        } catch (MalformedURLException | URISyntaxException e) {
+           // e.printStackTrace();
         }
 
         return null;
