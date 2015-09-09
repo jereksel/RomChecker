@@ -51,7 +51,6 @@ public class cmdTest {
         Main.main(new String[]{"https://raw.githubusercontent.com/SlimRoms/platform_manifest/lp5.1/default.xml",
                 "https://gist.githubusercontent.com/jereksel/927ba7046ed519250580/raw/6e7da36a242e10dc942788b68320581ec985d88a/slim_pie.xml"});
 
-        assertFalse(StringUtils.getLevenshteinDistance(outContent.toString(), "PIE (Slim) " + Main.cross) <= 2);
         assertTrue(StringUtils.getLevenshteinDistance(outContent.toString(), "PIE (Slim) " + Main.tick) <= 2);
 
     }
