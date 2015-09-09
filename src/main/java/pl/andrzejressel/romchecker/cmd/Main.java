@@ -3,13 +3,18 @@ package pl.andrzejressel.romchecker.cmd;
 import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import pl.andrzejressel.romchecker.lib.Checking;
 import pl.andrzejressel.romchecker.lib.feature.Feature;
 import pl.andrzejressel.romchecker.lib.features.Features;
 import pl.andrzejressel.romchecker.lib.repo.Manifest;
+import pl.andrzejressel.romchecker.lib.roms.Rom;
+import pl.andrzejressel.romchecker.lib.roms.Roms;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,7 +54,7 @@ public class Main {
         }
 
 
-       String[] files = line.getOptionValues("files");
+        String[] files = line.getOptionValues("files");
 
         String manifestString;
 
@@ -59,37 +64,56 @@ public class Main {
             manifestString = FileUtils.readFileToString(new File(files[0]));
         }
 
-        final Manifest manifest = Manifest.getManifest(manifestString);
-
-        String changeString;
+        String featureString;
 
         try {
-            changeString = IOUtils.toString(new URL(files[1]));
+            featureString = IOUtils.toString(new URL(files[1]));
         } catch (Exception e) {
-            changeString = FileUtils.readFileToString(new File(files[1]));
+            featureString = FileUtils.readFileToString(new File(files[1]));
         }
 
 
-        if (!line.hasOption("features")) {
+        List<Pair<Manifest, String>> manifests = new ArrayList<>();
 
-            final Feature feature = Feature.getChange(changeString);
 
-            checkFeature(feature, manifest);
-
+        if (!line.hasOption("roms")) {
+            manifests.add(new ImmutablePair<>(Manifest.getManifest(manifestString), ""));
         } else {
 
-            Features features = Features.getFeatures(changeString);
+            Roms roms = Roms.getRoms(manifestString);
 
-            List<String> featuresList = features.getFeatures();
-
-            Collections.sort(featuresList);
-
-            for (String string : featuresList) {
-                checkFeature(Feature.getChange(features.getFeatureXML(string, files[1])), manifest);
+            for (Rom rom : roms.getRomsList()) {
+                manifests.add(new ImmutablePair<>(Manifest.getManifest(IOUtils.toString(new URL(rom.getManifest()))), rom.getName()));
             }
 
         }
 
+
+        List<Feature> features = new ArrayList<>();
+
+        if (!line.hasOption("features")) {
+            features.add(Feature.getChange(featureString));
+        } else {
+
+            Features featuresTemp = Features.getFeatures(featureString);
+
+            for (String string : featuresTemp.getFeatures()) {
+                features.add(Feature.getChange(featuresTemp.getFeatureXML(string, files[1])));
+            }
+
+        }
+
+        for (Pair<Manifest, String> manifest : manifests) {
+
+            System.out.println(manifest.getValue());
+
+            for (Feature feature : features) {
+                checkFeature(feature, manifest.getKey());
+            }
+
+            System.out.println();
+
+        }
     }
 
 
@@ -114,9 +138,10 @@ public class Main {
 
         Option help = new Option("h", "help", false, "print this message");
         Option features = new Option("f", "features", false, "use features list instead of feature");
+        Option rom = new Option("r", "roms", false, "use roms list instead of rom");
         Option fancy = new Option(null, "fancy", false, "use fancy unicode characters (doesn't work on Windows terminal)");
 
-        Option files =  Option.builder().longOpt("files").argName("Manifest file> <Feature file").numberOfArgs(2)
+        Option files = Option.builder().longOpt("files").argName("Manifest file> <Feature file").numberOfArgs(2)
                 .hasArgs().optionalArg(false).valueSeparator(' ').desc("files to parse").required(true)
                 .build();
 
@@ -125,6 +150,7 @@ public class Main {
         options.addOption(features);
         options.addOption(files);
         options.addOption(fancy);
+        options.addOption(rom);
 
         return options;
 
