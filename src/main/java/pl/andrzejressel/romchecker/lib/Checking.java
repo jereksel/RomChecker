@@ -67,6 +67,5 @@ public class Checking {
         }
 
         return StringUtils.deleteWhitespace(fileData).contains(StringUtils.deleteWhitespace(file.getCode()));
-
     }
 }
