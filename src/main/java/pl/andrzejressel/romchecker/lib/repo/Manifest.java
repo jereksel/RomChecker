@@ -73,6 +73,11 @@ public class Manifest {
             name = "android/" + name;
         }
 
+        //We may have to add "/" at the end of remoteUrl (e.g. Frank)
+        if (remoteUrl.charAt(remoteUrl.length() - 1) != '/') {
+            remoteUrl += "/";
+        }
+
 
         return remoteUrl + name + "/" + revision;
 

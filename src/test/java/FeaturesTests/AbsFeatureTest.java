@@ -70,7 +70,7 @@ public abstract class AbsFeatureTest {
     private void testFeature(Feature feature) throws Exception {
 
         for (Pair<String, Boolean> pair : pairs) {
-            assertEquals(pair.getRight(), Checking.checkChangeWithManifest(feature, Manifest.getManifest(IOUtils.toString(new URL(pair.getLeft())))));
+            assertEquals(pair.getLeft(), pair.getRight(), Checking.checkChangeWithManifest(feature, Manifest.getManifest(IOUtils.toString(new URL(pair.getLeft())))));
         }
 
     }

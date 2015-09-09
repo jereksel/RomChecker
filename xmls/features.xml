@@ -3,4 +3,5 @@
     <feature location="features/rocker.xml" name="Control music with volume rocker"/>
     <feature location="features/slim_pie.xml" name="PIE (Slim)"/>
     <feature location="features/cmte.xml" name="CyanogenMod Theme Engine"/>
+    <feature location="features/layers.xml" name="Layers"/>
 </features>

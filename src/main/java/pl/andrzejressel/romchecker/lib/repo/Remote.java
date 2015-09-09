@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-@JsonIgnoreProperties({"review"})
+@JsonIgnoreProperties({"review", "sync-j"})
 public class Remote {
 
     @XmlAttribute(name = "name")

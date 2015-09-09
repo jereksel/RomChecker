@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<feature name="Layers">
+    <section>
+        <file repo="frameworks/base" name="libs/androidfw/ResourceTypes.cpp" code=" // pad with 0xffffffff's (indicating non-existing entries) before adding this entry
+                size_t index = typeMap.entryMap.size();
+                size_t numItems = entryIndex - (typeMap.entryOffset + index);"/>
+    </section>
+</feature>
