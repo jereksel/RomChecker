@@ -1,4 +1,4 @@
-package FeaturesTests;
+package featuresTests;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.ImmutablePair;

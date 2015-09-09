@@ -12,6 +12,10 @@ import java.util.NoSuchElementException;
 
 public class Checking {
 
+    //No instances
+    private Checking() {
+    }
+
     public static boolean checkChangeWithManifest(Feature feature, Manifest manifest) {
 
         return feature.getSections().parallelStream().anyMatch(section ->
