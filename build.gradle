@@ -1,0 +1,39 @@
+apply plugin: 'java'
+apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: "jacoco"
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "pl.andrzejressel.romchecker.cmd.Main"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+    compile 'commons-io:commons-io:2.4'
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.5.3'
+
+    testCompile 'junit:junit:4.10'
+    testCompile('org.slf4j:slf4j-simple:1.6.1')
+}
+
+
+compileJava.options.encoding = 'UTF-8'

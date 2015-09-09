@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<roms>
+    <rom name="AOSP"
+         manifest="https://raw.githubusercontent.com/android/platform_manifest/android-5.1.1_r13/default.xml"/>
+    <rom name="CyanogenMod 12.1" manifest="https://raw.githubusercontent.com/CyanogenMod/android/cm-12.1/default.xml"/>
+    <rom name="SlimLP" manifest="https://raw.githubusercontent.com/SlimRoms/platform_manifest/lp5.1/default.xml"/>
+</roms>
