@@ -6,10 +6,10 @@ import java.util.Objects;
 public class Rom {
 
     @XmlAttribute(name = "name")
-    String name;
+    private String name;
 
     @XmlAttribute(name = "manifest")
-    String manifest;
+    private String manifest;
 
     private Rom() {
     }

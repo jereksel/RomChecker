@@ -27,7 +27,8 @@ public class BasicTest {
 
         Roms roms = Roms.getRoms(xml);
 
-
+        assertEquals("A", createRom("A", "B").getName());
+        assertEquals("B", createRom("A", "B").getManifest());
         assertFalse(roms.getRomsList().contains(createRom("AOSP", "asd")));
         assertTrue(roms.getRomsList().contains(createRom("AOSP", "https://raw.githubusercontent.com/android/platform_manifest/android-5.1.1_r13/default.xml")));
         assertTrue(roms.getRomsList().contains(createRom("CyanogenMod 12.1", "https://raw.githubusercontent.com/CyanogenMod/android/cm-12.1/default.xml")));
@@ -36,6 +37,7 @@ public class BasicTest {
     }
 
     private Rom createRom(String name, String manifest) throws Exception {
+
 
         Constructor<Rom> constructor = Rom.class.getDeclaredConstructor();
         constructor.setAccessible(true);
