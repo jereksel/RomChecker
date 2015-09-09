@@ -108,7 +108,6 @@ public class Main {
 
     private static void printUsageAndExit() {
         new HelpFormatter().printHelp("RomChecker", getOptions(), true);
-        System.exit(1);
     }
 
     private static Options getOptions() {

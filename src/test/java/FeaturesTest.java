@@ -47,4 +47,47 @@ public class FeaturesTest {
         assertEquals("https://www.foo.bar/features/foo.xml", location.toString());
     }
 
+    @Test
+    public void testGetXMLData() throws Exception {
+
+        File featuresFile = new File("src/test/resources/testfeatures.xml");
+        Features features = Features.getFeatures(FileUtils.readFileToString(featuresFile));
+
+        String data = features.getFeatureXML("Test Feature with relative path", featuresFile.getAbsolutePath());
+
+        assertEquals(data, FileUtils.readFileToString(new File("src/test/resources/features/foo.xml")));
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void illegalArgument() throws Exception {
+
+        File featuresFile = new File("src/test/resources/testfeatures.xml");
+        Features features = Features.getFeatures(FileUtils.readFileToString(featuresFile));
+
+        String data = features.getFeatureXML("NOT EXISTING", featuresFile.getAbsolutePath());
+
+
+    }
+
+    @Test
+    public void xmlWithAbsolutePath() throws Exception {
+
+        File feature = new File("src/test/resources/features/foo.xml");
+
+        assertTrue(feature.exists());
+
+        String xml = "<?xml version=\"1.0\"?>\n" +
+                "<features>\n" +
+                "    <feature location=\"" + feature.getAbsolutePath() + "\" name=\"Absolute existing path\"/>\n" +
+                "</features>";
+
+
+        Features features = Features.getFeatures(xml);
+        URI location = features.getFeatureXMLLocation("Absolute existing path", "we don't care");
+
+        assertEquals(feature.toURI(), location);
+
+    }
+
 }
