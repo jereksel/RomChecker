@@ -12,6 +12,7 @@ import pl.andrzejressel.romchecker.lib.features.Features;
 import pl.andrzejressel.romchecker.lib.repo.Manifest;
 
 import java.io.File;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,9 +60,9 @@ public abstract class AbsFeatureTest {
 
         Features features = Features.getFeatures(FileUtils.readFileToString(new File("xmls/features.xml")));
 
-        String fileLocation = features.getFeatureXMLLocation(featureName, "xmls/features.xml");
+        URI fileLocation = features.getFeatureXMLLocation(featureName, "xmls/features.xml");
 
-        testFeature(Feature.getChange(FileUtils.readFileToString(new File(fileLocation))));
+        testFeature(Feature.getChange(IOUtils.toString(fileLocation)));
 
     }
 
