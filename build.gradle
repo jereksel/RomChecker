@@ -1,6 +1,6 @@
 apply plugin: 'java'
-apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: "jacoco"
+apply plugin: 'com.github.kt3k.coveralls'
 
 buildscript {
     repositories {
@@ -35,5 +35,11 @@ dependencies {
     testCompile('org.slf4j:slf4j-simple:1.6.1')
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+}
 
 compileJava.options.encoding = 'UTF-8'
