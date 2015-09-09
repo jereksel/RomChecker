@@ -4,10 +4,14 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +35,21 @@ public class Features {
     }
 
     public String getFeatureXML(String featureName, String featuresFileLocation) {
+
+        try {
+           // return IOUtils.toString(new URI(getFeatureXMLLocation(featureName, featuresFileLocation)));
+
+            return FileUtils.readFileToString(new File(getFeatureXMLLocation(featureName, featuresFileLocation)));
+
+        } catch (IOException  e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    public String getFeatureXMLLocation(String featureName, String featuresFileLocation) {
 
         List<String> featuresList = getFeatures();
 
@@ -66,7 +85,7 @@ public class Features {
 
 
         try {
-            URL featuresUrl = new URL(StringUtils.remove(featuresFileLocation,StringUtils.substringAfterLast(featuresFileLocation, "/")));
+            URL featuresUrl = new URL(StringUtils.remove(featuresFileLocation, StringUtils.substringAfterLast(featuresFileLocation, "/")));
             return featuresUrl.toString() + feature.getLocation();
         } catch (MalformedURLException e) {
             e.printStackTrace();

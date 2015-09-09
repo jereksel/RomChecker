@@ -3,7 +3,9 @@ package cmdTests;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import pl.andrzejressel.romchecker.cmd.Main;
 
 import java.io.ByteArrayOutputStream;
@@ -16,6 +18,9 @@ public class cmdTest {
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+
+    @Rule
+    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
     @Before
     public void setUpStreams() {
@@ -30,25 +35,23 @@ public class cmdTest {
     }
 
     @Test
-    public void noArgsTest() throws Exception {
+    public void wrongArgsTest() throws Exception {
+        exit.expectSystemExitWithStatus(1);
         Main.main(new String[]{"1"});
-
-        assertTrue(StringUtils.getLevenshteinDistance(outContent.toString(), Main.usage) <= 2);
     }
 
 
     @Test
-    public void noArgsTest2() throws Exception {
+    public void wrongArgsTest2() throws Exception {
+        exit.expectSystemExitWithStatus(1);
         Main.main(new String[]{"1", "2", "3"});
-
-        assertTrue(StringUtils.getLevenshteinDistance(outContent.toString(), Main.usage) <= 2);
     }
 
 
     @Test
     public void tickUrlTest() throws Exception {
 
-        Main.main(new String[]{"https://raw.githubusercontent.com/SlimRoms/platform_manifest/lp5.1/default.xml",
+        Main.main(new String[]{"--files", "https://raw.githubusercontent.com/SlimRoms/platform_manifest/lp5.1/default.xml",
                 "https://gist.githubusercontent.com/jereksel/927ba7046ed519250580/raw/6e7da36a242e10dc942788b68320581ec985d88a/slim_pie.xml"});
 
         assertTrue(StringUtils.getLevenshteinDistance(outContent.toString(), "PIE (Slim) " + Main.tick) <= 2);
@@ -57,8 +60,7 @@ public class cmdTest {
 
     @Test
     public void crossUrlTest() throws Exception {
-
-        Main.main(new String[]{"https://raw.githubusercontent.com/CyanogenMod/android/cm-12.1/default.xml",
+        Main.main(new String[]{"--files", "https://raw.githubusercontent.com/CyanogenMod/android/cm-12.1/default.xml",
                 "https://gist.githubusercontent.com/jereksel/927ba7046ed519250580/raw/6e7da36a242e10dc942788b68320581ec985d88a/slim_pie.xml"});
 
         assertTrue(StringUtils.getLevenshteinDistance(outContent.toString(), "PIE (Slim) " + Main.cross) <= 2);
@@ -68,8 +70,8 @@ public class cmdTest {
     @Test
     public void tickFileTest() throws Exception {
 
-        Main.main(new String[]{"https://raw.githubusercontent.com/SlimRoms/platform_manifest/lp5.1/default.xml",
-                "xmls/features/slim_pie.xml"});
+        Main.main(new String[]{"--files", "https://raw.githubusercontent.com/SlimRoms/platform_manifest/lp5.1/default.xml",
+                "src/test/resources/slim_pie.xml"});
 
         assertTrue(StringUtils.getLevenshteinDistance(outContent.toString(), "PIE (Slim) " + Main.tick) <= 2);
 

@@ -21,7 +21,6 @@ public class Checking {
         return feature.getSections().parallelStream().anyMatch(section ->
                 section.getFiles().parallelStream().allMatch(file -> checkFileWithManifest(file, manifest)));
 
-
     }
 
 

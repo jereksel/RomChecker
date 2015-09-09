@@ -1,5 +1,4 @@
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import pl.andrzejressel.romchecker.lib.features.Features;
 
@@ -17,7 +16,7 @@ public class FeaturesTest {
         File featuresFile = new File("src/test/resources/testfeatures.xml");
         Features features = Features.getFeatures(FileUtils.readFileToString(featuresFile));
 
-        String location = features.getFeatureXML("Test Feature with relative path", featuresFile.getAbsolutePath());
+        String location = features.getFeatureXMLLocation("Test Feature with relative path", featuresFile.getAbsolutePath());
 
         assertTrue(new File(location).exists());
 
@@ -29,7 +28,7 @@ public class FeaturesTest {
         File featuresFile = new File("src/test/resources/testfeatures.xml");
         Features features = Features.getFeatures(FileUtils.readFileToString(featuresFile));
 
-        String location = features.getFeatureXML("Test Feature with relative path", "https://www.abc.com/app/testfeatures.xml");
+        String location = features.getFeatureXMLLocation("Test Feature with relative path", "https://www.abc.com/app/testfeatures.xml");
 
         assertEquals("https://www.abc.com/app/features/foo.xml", location);
 
@@ -42,7 +41,7 @@ public class FeaturesTest {
         File featuresFile = new File("src/test/resources/testfeatures.xml");
         Features features = Features.getFeatures(FileUtils.readFileToString(featuresFile));
 
-        String location = features.getFeatureXML("Test Feature with absolute url", "https://www.abc.com/app/testfeatures.xml");
+        String location = features.getFeatureXMLLocation("Test Feature with absolute url", "https://www.abc.com/app/testfeatures.xml");
 
         assertEquals("https://www.foo.bar/features/foo.xml", location);
     }

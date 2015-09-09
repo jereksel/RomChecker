@@ -59,7 +59,7 @@ public abstract class AbsFeatureTest {
 
         Features features = Features.getFeatures(FileUtils.readFileToString(new File("xmls/features.xml")));
 
-        String fileLocation = features.getFeatureXML(featureName, "xmls/features.xml");
+        String fileLocation = features.getFeatureXMLLocation(featureName, "xmls/features.xml");
 
         testFeature(Feature.getChange(FileUtils.readFileToString(new File(fileLocation))));
 

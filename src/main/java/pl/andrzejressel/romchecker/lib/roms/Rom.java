@@ -31,8 +31,4 @@ public class Rom {
                 Objects.equals(manifest, rom.manifest);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, manifest);
-    }
 }
