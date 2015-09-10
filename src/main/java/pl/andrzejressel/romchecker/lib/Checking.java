@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import pl.andrzejressel.romchecker.lib.feature.Feature;
 import pl.andrzejressel.romchecker.lib.feature.File;
+import pl.andrzejressel.romchecker.lib.feature.Section;
 import pl.andrzejressel.romchecker.lib.repo.Manifest;
 
 import java.io.IOException;
@@ -18,8 +19,31 @@ public class Checking {
 
     public static boolean checkChangeWithManifest(Feature feature, Manifest manifest) {
 
-        return feature.getSections().parallelStream().anyMatch(section ->
-                section.getFiles().parallelStream().allMatch(file -> checkFileWithManifest(file, manifest)));
+        //   return feature.getSections().parallelStream().anyMatch(section ->
+        //           section.getFiles().parallelStream().allMatch(file -> checkFileWithManifest(file, manifest)));
+
+
+        for (Section section : feature.getSections()) {
+
+            int i = 0;
+
+            for (File file : section.getFiles()) {
+
+                if (checkFileWithManifest(file, manifest)) {
+                    i++;
+                } else {
+                    break;
+                }
+            }
+
+            if (i == section.getFiles().size()) {
+                return true;
+            }
+
+
+        }
+
+        return false;
 
     }
 

@@ -3,7 +3,6 @@ package pl.andrzejressel.romchecker.lib.features;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,7 +14,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.NoSuchElementException;
 
 public class Features {
 
@@ -31,7 +30,17 @@ public class Features {
     }
 
     public List<String> getFeatures() {
-        return features.parallelStream().map(Feature::getName).collect(Collectors.toList());
+       // return features.parallelStream().map(Feature::getName).collect(Collectors.toList());
+
+        List<String> stringList = new ArrayList<>();
+
+        for (Feature feature : features) {
+            stringList.add(feature.getName());
+        }
+
+
+        return stringList;
+
     }
 
     public String getFeatureXML(String featureName, String featuresFileLocation) {
@@ -55,7 +64,25 @@ public class Features {
             throw new IllegalArgumentException();
         }
 
-        Feature feature = features.parallelStream().filter(e -> e.getName().equalsIgnoreCase(featureName)).findFirst().get();
+     //   Feature feature = features.parallelStream().filter(e -> e.getName().equalsIgnoreCase(featureName)).findFirst().get();
+
+        Feature feature = null;
+
+        //  Remote remote = remotes.parallelStream().filter(remote1 -> remote1.getName().equalsIgnoreCase(finalRemoteName)).findFirst().get();
+
+        for (Feature featureTemp : features) {
+
+            if (featureTemp.getName().equalsIgnoreCase(featureName)) {
+                feature = featureTemp;
+                break;
+            }
+
+        }
+
+        if (feature == null) {
+            throw new NoSuchElementException();
+        }
+
 
         File file = new File(feature.getLocation());
 

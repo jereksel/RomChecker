@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @JsonIgnoreProperties({"repo", "groups", "copyfile", "src", "dest", "name"})
 public class Manifest {
@@ -32,7 +33,27 @@ public class Manifest {
 
         //First, we're looking for project with given path
 
-        Project project = projects.parallelStream().filter(project1 -> project1.getPath().equalsIgnoreCase(path)).findFirst().get();
+      //  Project project = projects.parallelStream().filter(project1 -> project1.getPath().equalsIgnoreCase(path)).findFirst().get();
+
+
+        Project project = null;
+
+        //  Remote remote = remotes.parallelStream().filter(remote1 -> remote1.getName().equalsIgnoreCase(finalRemoteName)).findFirst().get();
+
+        for (Project projectTemp : projects) {
+
+            if (projectTemp.getPath().equalsIgnoreCase(path)) {
+                project = projectTemp;
+                break;
+            }
+
+        }
+
+        if (project == null) {
+            throw new NoSuchElementException();
+        }
+
+
 
         String name = project.getName();
 
@@ -55,7 +76,23 @@ public class Manifest {
 
         //Then get remote
         final String finalRemoteName = remoteName;
-        Remote remote = remotes.parallelStream().filter(remote1 -> remote1.getName().equalsIgnoreCase(finalRemoteName)).findFirst().get();
+
+        Remote remote = null;
+
+        //  Remote remote = remotes.parallelStream().filter(remote1 -> remote1.getName().equalsIgnoreCase(finalRemoteName)).findFirst().get();
+
+        for (Remote remoteTemp : remotes) {
+
+            if (remoteTemp.getName().equalsIgnoreCase(finalRemoteName)) {
+                remote = remoteTemp;
+                break;
+            }
+
+        }
+
+        if (remote == null) {
+            throw new NoSuchElementException();
+        }
 
 
         //Parsing it
