@@ -29,7 +29,7 @@ public class NoNameTest {
                 "    </section>\n" +
                 "</feature>";
 
-        Feature feature = Feature.getChange(featureString);
+        Feature feature = Feature.getFeature(featureString);
 
 
         assertFalse(Checking.checkChangeWithManifest(feature, manifest));
@@ -55,7 +55,7 @@ public class NoNameTest {
                 "    </section>\n" +
                 "</feature>";
 
-        Feature feature = Feature.getChange(featureString);
+        Feature feature = Feature.getFeature(featureString);
 
 
         assertTrue(Checking.checkChangeWithManifest(feature, manifest));

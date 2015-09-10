@@ -1,11 +1,10 @@
 package pl.andrzejressel.romchecker.lib.features;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,15 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class Features {
 
-    @JacksonXmlElementWrapper(localName = "feature", useWrapping = false)
-    @JacksonXmlProperty(localName = "feature")
+    @ElementList(inline=true)
     List<Feature> features = new ArrayList<>();
 
     public static Features getFeatures(String xmlInsides) throws Exception {
-        return new XmlMapper().readValue(xmlInsides, Features.class);
+        return new Persister().read(Features.class, xmlInsides, false);
     }
 
     private Features() {
@@ -126,7 +123,10 @@ public class Features {
     //We should only access class from here (all access will be done in Features class)
     private static class Feature {
 
+        @Attribute(name="location")
         public String location;
+
+        @Attribute(name="name")
         public String name;
 
         Feature() {

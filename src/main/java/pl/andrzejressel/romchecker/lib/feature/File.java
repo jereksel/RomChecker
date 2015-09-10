@@ -1,19 +1,16 @@
 package pl.andrzejressel.romchecker.lib.feature;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.simpleframework.xml.Attribute;
 
-import javax.xml.bind.annotation.XmlAttribute;
-
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class File {
 
-    @XmlAttribute(name = "name")
+    @Attribute(name = "name", required = false)
     private String name;
 
-    @XmlAttribute(name = "code")
+    @Attribute(name = "code", required = false)
     private String code;
 
-    @XmlAttribute(name = "repo")
+    @Attribute(name = "repo")
     private String repo;
 
 

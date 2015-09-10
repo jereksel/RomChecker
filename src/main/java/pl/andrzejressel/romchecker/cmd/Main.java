@@ -15,7 +15,6 @@ import pl.andrzejressel.romchecker.lib.roms.Roms;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -92,13 +91,13 @@ public class Main {
         List<Feature> features = new ArrayList<>();
 
         if (!line.hasOption("features")) {
-            features.add(Feature.getChange(featureString));
+            features.add(Feature.getFeature(featureString));
         } else {
 
             Features featuresTemp = Features.getFeatures(featureString);
 
             for (String string : featuresTemp.getFeatures()) {
-                features.add(Feature.getChange(featuresTemp.getFeatureXML(string, files[1])));
+                features.add(Feature.getFeature(featuresTemp.getFeatureXML(string, files[1])));
             }
 
         }

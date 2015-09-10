@@ -14,7 +14,7 @@ public class BasicTests {
     public void basicChangeParsingTest() throws Exception {
 
 
-        final Feature feature = Feature.getChange(IOUtils.toString(new File("xmls/features/slim_pie.xml").toURI(), "UTF-8"));
+        final Feature feature = Feature.getFeature(IOUtils.toString(new File("xmls/features/slim_pie.xml").toURI(), "UTF-8"));
 
         assertEquals("frameworks/base", feature.getSections().get(0).getFiles().get(0).getRepo());
         assertEquals("PIE (Slim)", feature.getName());

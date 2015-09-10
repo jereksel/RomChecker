@@ -1,5 +1,5 @@
 import org.junit.Test;
-import pl.andrzejressel.romchecker.lib.repo.Manifest;
+import pl.andrzejressel.romchecker.lib.feature.Feature;
 
 public class UnknownFieldTest {
 
@@ -14,7 +14,7 @@ public class UnknownFieldTest {
                 "</feature>";
 
 
-        Manifest.getManifest(xml);
+        Feature.getFeature(xml);
 
 
     }

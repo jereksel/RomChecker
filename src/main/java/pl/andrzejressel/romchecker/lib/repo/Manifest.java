@@ -1,32 +1,28 @@
 package pl.andrzejressel.romchecker.lib.repo;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import org.apache.commons.lang3.StringUtils;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.core.Persister;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class Manifest {
 
-    @JacksonXmlProperty(localName = "remote")
-    @JacksonXmlElementWrapper(localName = "remote", useWrapping = false)
+    @ElementList(inline=true)
     private List<Remote> remotes = new ArrayList<>();
 
-    @JacksonXmlProperty(localName = "project")
-    @JacksonXmlElementWrapper(localName = "project", useWrapping = false)
+    @ElementList(inline=true)
     private List<Project> projects = new ArrayList<>();
 
-    @JacksonXmlProperty(localName = "default")
+    @Element(name="default")
     private Default aDefault;
 
 
     public static Manifest getManifest(String xml) throws Exception {
-        return new XmlMapper().readValue(xml, Manifest.class);
+        return new Persister().read(Manifest.class, xml, false);
     }
 
     public String getUrlForPath(String path) {
@@ -37,8 +33,6 @@ public class Manifest {
 
 
         Project project = null;
-
-        //  Remote remote = remotes.parallelStream().filter(remote1 -> remote1.getName().equalsIgnoreCase(finalRemoteName)).findFirst().get();
 
         for (Project projectTemp : projects) {
 

@@ -1,18 +1,15 @@
 package pl.andrzejressel.romchecker.lib.roms;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
+import org.simpleframework.xml.core.Persister;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class Roms {
 
-    @JacksonXmlProperty(localName = "rom")
-    @JacksonXmlElementWrapper(localName = "rom", useWrapping = false)
+    @ElementList(inline=true)
     private List<Rom> roms = new ArrayList<>();
 
     private Roms() {
@@ -23,7 +20,7 @@ public class Roms {
     }
 
     public static Roms getRoms(String xml) throws Exception {
-        return new XmlMapper().readValue(xml, Roms.class);
+        return new Persister().read(Roms.class, xml, false);
     }
 
 }

@@ -1,17 +1,15 @@
 package pl.andrzejressel.romchecker.lib.roms;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.simpleframework.xml.Attribute;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import java.util.Objects;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class Rom {
 
-    @XmlAttribute(name = "name")
+    @Attribute(name="name")
     private String name;
 
-    @XmlAttribute(name = "manifest")
+    @Attribute(name="manifest")
     private String manifest;
 
     private Rom() {

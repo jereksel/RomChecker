@@ -1,13 +1,20 @@
 package pl.andrzejressel.romchecker.lib.repo;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
+import org.simpleframework.xml.Attribute;
+
 public class Project {
 
+    @Attribute(name="path")
     String path;
+
+    @Attribute(name="name")
     String name;
+
+    @Attribute(name="remote", required = false)
     String remote;
+
+    @Attribute(name="revision", required = false)
     String revision;
 
     public Project() {

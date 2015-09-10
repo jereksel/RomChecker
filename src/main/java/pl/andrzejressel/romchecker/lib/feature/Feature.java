@@ -1,40 +1,28 @@
 package pl.andrzejressel.romchecker.lib.feature;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.core.Persister;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public class Feature {
 
     //No instances for you
     private Feature() {
     }
 
-    public static Feature getChange(String xml) throws IOException {
-        return new XmlMapper().readValue(xml, Feature.class);
+    public static Feature getFeature(String xml) throws Exception {
+      //  return new XmlMapper().readValue(xml, Feature.class);
+        return new Persister().read(Feature.class, xml, false);
     }
 
-    @XmlAttribute(name = "repo")
-    private String repo;
-
-    @XmlAttribute(name = "name")
+    @Attribute(name="name")
     private String name;
 
-    @JacksonXmlElementWrapper(localName = "section", useWrapping = false)
-    @JacksonXmlProperty(localName = "section")
+    @ElementList(inline=true)
     List<Section> sections = new ArrayList<>();
-
-    public String getRepo() {
-        return repo;
-    }
 
     public List<Section> getSections() {
         return sections;

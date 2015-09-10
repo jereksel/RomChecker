@@ -42,7 +42,7 @@ public abstract class AbsFeatureTest {
         Validate.notNull(xml);
         Validate.notEmpty(pairs);
 
-        final Feature feature = Feature.getChange(xml);
+        final Feature feature = Feature.getFeature(xml);
 
         testFeature(feature);
 
@@ -62,7 +62,7 @@ public abstract class AbsFeatureTest {
 
         URI fileLocation = features.getFeatureXMLLocation(featureName, "xmls/features.xml");
 
-        testFeature(Feature.getChange(IOUtils.toString(fileLocation)));
+        testFeature(Feature.getFeature(IOUtils.toString(fileLocation)));
 
     }
 

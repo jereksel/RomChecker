@@ -1,19 +1,16 @@
 package pl.andrzejressel.romchecker.lib.repo;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.simpleframework.xml.Attribute;
 
-import javax.xml.bind.annotation.XmlAttribute;
-
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class Remote {
 
-    @XmlAttribute(name = "name")
+    @Attribute(name="name")
     String name;
 
-    @XmlAttribute(name = "fetch")
+    @Attribute(name="fetch")
     String fetch;
 
-    @XmlAttribute(name = "revision")
+    @Attribute(name="revision", required = false)
     String revision;
 
     public Remote() {
