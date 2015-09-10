@@ -1,7 +1,10 @@
 package pl.andrzejressel.romchecker.lib.feature;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.xml.bind.annotation.XmlAttribute;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class File {
 
     @XmlAttribute(name = "name")

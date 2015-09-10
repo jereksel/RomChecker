@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@JsonIgnoreProperties({"repo", "groups", "copyfile", "src", "dest", "name"})
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Manifest {
 
     @JacksonXmlProperty(localName = "remote")

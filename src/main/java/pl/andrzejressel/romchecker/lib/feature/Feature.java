@@ -1,6 +1,7 @@
 package pl.andrzejressel.romchecker.lib.feature;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -9,6 +10,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import java.io.IOException;
 import java.util.*;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public class Feature {
 

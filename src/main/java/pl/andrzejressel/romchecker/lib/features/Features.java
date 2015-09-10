@@ -1,5 +1,6 @@
 package pl.andrzejressel.romchecker.lib.features;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Features {
 
     @JacksonXmlElementWrapper(localName = "feature", useWrapping = false)

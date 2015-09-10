@@ -2,7 +2,7 @@ package pl.andrzejressel.romchecker.lib.repo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties({"groups", "copyfile", "clone-depth"})
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Project {
 
     String path;

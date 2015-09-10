@@ -1,8 +1,11 @@
 package pl.andrzejressel.romchecker.lib.roms;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Rom {
 
     @XmlAttribute(name = "name")

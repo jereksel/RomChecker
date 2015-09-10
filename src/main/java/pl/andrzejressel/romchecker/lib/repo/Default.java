@@ -2,7 +2,7 @@ package pl.andrzejressel.romchecker.lib.repo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties({"sync-c", "sync-j", "sync-f"})
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Default {
 
     String revision;
